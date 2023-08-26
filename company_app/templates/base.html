@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Company Device Management{% endblock %}</title>
+    <!-- Add your CSS links here -->
+</head>
+<body>
+    <header>
+        <h1>Company Device Management</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'company_app:register_company' %}">Register</a></li>
+            <li><a href="{% url 'company_app:company_login' %}">Login</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+    
+    <!-- Add your JavaScript links here -->
+</body>
+</html>

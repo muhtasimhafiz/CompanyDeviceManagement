@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Company Dashboard</h2>
+  
+  <!-- Add Employee Form -->
+  <h3>Add Employee</h3>
+  <form method="post" action="{% url 'company_app:add_employee' %}">
+    {% csrf_token %}
+    {{ employee_form.as_p }}
+    <button type="submit">Add Employee</button>
+  </form>
+  
+  <!-- Add Device Form -->
+  <h3>Add Device</h3>
+  <form method="post" action="{% url 'company_app:add_device' %}">
+    {% csrf_token %}
+    {{ device_form.as_p }}
+    <button type="submit">Add Device</button>
+  </form>
+  
+  <!-- Display List of Employees and Devices -->
+  <h3>Employees</h3>
+  <ul>
+    {% for employee in employees %}
+      <li>{{ employee }}</li>
+    {% endfor %}
+  </ul>
+  
+  <h3>Devices</h3>
+  <ul>
+    {% for device in devices %}
+      <li>{{ device }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
