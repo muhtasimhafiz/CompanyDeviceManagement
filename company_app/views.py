@@ -48,7 +48,7 @@ def add_device(request):
         form = DeviceForm(request.POST)
         if form.is_valid():
             device = form.save(commit=False)
-            device.company_id = request.user.id  # Assign the logged-in user's company ID to the device
+            device.company_id = request.user.id 
             device.save()
             return redirect('company_app:dashboard')
     else:
@@ -80,14 +80,13 @@ def manage_device(request):
                 'checkout_time':latest_log.checkout_time
 
             }
-            # print(vars(device.logs))
         except DeviceLog.DoesNotExist:
             device.logs = None
         
     if request.method == 'POST':
         if 'checkout' in request.POST:
             checkout_form = DeviceCheckoutForm(request.POST, company=request.user)
-            checkin_form = DeviceCheckinForm()  # No need to pass request.POST here
+            checkin_form = DeviceCheckinForm()  
 
             if checkout_form.is_valid():
                 device_id = request.POST.get('device_id')
@@ -153,6 +152,6 @@ def logout_view(request):
     return redirect('company_app:company_login')  
 
 def device_log_list(request):
-    logs = DeviceLog.objects.all().order_by('-checkout_time')  # Sort by checkout time in descending order
+    logs = DeviceLog.objects.all().order_by('-checkout_time') 
     context = {'logs': logs}
     return render(request, 'device_log_list.html', context)
