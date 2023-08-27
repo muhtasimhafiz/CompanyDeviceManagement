@@ -8,16 +8,14 @@ from .models import Company
 
 
 class CompanyRegistrationForm(UserCreationForm):
-    name = forms.CharField(max_length=100, label="Company Name")
-    username = forms.CharField(max_length=100, label="Username")
-
     class Meta:
         model = Company
-        fields = ('name', 'username', 'password1', 'password2')
+        fields = ('name','username', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].label = 'Username'
+        self.fields['name'].label = 'Company Name'
 
 class CompanyLoginForm(AuthenticationForm):
     username = forms.CharField(label='Company Name')

@@ -11,13 +11,15 @@ def register_company(request):
     if request.method == 'POST':
         form = CompanyRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Create the user instance but don't save it yet
-            user.username = form.cleaned_data['username']  # Set the username from the form
-            user.save()  # Save the user instance
+            # No need to create a separate company instance; 
+            # you can set the name field directly.
+            user = form.save(commit=False)  
+            user.username = form.cleaned_data['username']
+            user.name = form.cleaned_data['name']
+            user.save()
+
+            # Log in the user.
             login(request, user)
-            company_name = form.cleaned_data['name']
-            company = Company.objects.create(name=company_name)
-            company.save()
             return redirect('company_app:dashboard')
     else:
         form = CompanyRegistrationForm()

@@ -26,7 +26,7 @@ class Device(models.Model):
     current_condition = models.CharField(max_length=10, choices=condition_choices, default='Good')
     status = models.CharField(max_length=10, choices=[('In', 'In'), ('Out', 'Out')], default='In')
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    reference_id = models.CharField(unique=True, max_length=10)  
+    reference_id = models.CharField(unique=True, null=True, max_length=10)  
     
 
     def save(self, *args, **kwargs):
