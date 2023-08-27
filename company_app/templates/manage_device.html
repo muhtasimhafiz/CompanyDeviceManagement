@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Manage Devices</h2>
+
+  {% if checkout_form.errors %}
+    <ul class="errorlist">
+      {% for error in checkout_form.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if checkin_form.errors %}
+    <ul class="errorlist">
+      {% for error in checkin_form.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <table>
+    <thead>
+      <tr>
+        <th>Device Name</th>
+        <th>Reference ID</th>
+        <th>Status</th>
+        <th>Chekced By</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for device in devices %}
+        <tr>
+          <td>{{ device.name }}</td>
+          <td>{{ device.reference_id }}</td>
+          <td>{{ device.status }}</td>
+          <td>
+            {% if device.status == 'Out' %}
+              Checked By: {{ device.logs.checked_out_by.name }}<br>
+              Checked At: {{ device.logs.checkout_time }}            
+            {% endif %}
+          </td>
+          <td>
+            {% if device.status == 'In' %}
+              <form method="post" action="{% url 'company_app:manage_device' %}">
+                {% csrf_token %}
+                <input type="hidden" name="device_id" value="{{ device.id }}" />
+                <input type="hidden" name="checkout" value="checkout" />
+
+                {{ checkout_form.checked_out_by }}
+                {{ checkout_form.checked_out_at }}
+                {{ device.current_condition }}
+                {% if checkout_form.errors %}
+                  <ul class="errorlist">
+                    {% for field in checkout_form %}
+                      {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                <button type="submit">Checkout</button>
+              </form>
+            {% else %}
+              <form method="post" action="{% url 'company_app:manage_device' %}">
+                {% csrf_token %}
+                <input type="hidden" name="device_id" value="{{ device.id }}" />
+                <input type="hidden" name="checkin" value="checkin" />
+
+                {{ checkin_form.checked_in_at }} 
+                <select name="condition_on_checkin">
+                  {% for value, label in checkin_form.fields.condition_on_checkin.choices %}
+                    <option value="{{ value }}" {% if device.current_condition == value %} selected {% endif %}>{{ label }}</option>
+                  {% endfor %}
+                  </select>                
+                  <button type="submit">Checkin</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- ... -->
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Device Logs</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Device Name</th>
+        <th>Checkout Condition</th>
+        <th>Checkin Condition</th>
+        <th>Checked Out By</th>
+        <th>Checked In By</th>
+        <th>Checked Out At</th>
+        <th>Checked In At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+        <tr>
+          <td>{{ log.device.name }}</td>
+          <td>{{ log.condition_on_checkout }}</td>
+          <td>{{ log.condition_on_checkin }}</td>
+          <td>{{ log.checked_out_by.name }}</td>
+          <td>{{ log.checked_in_by.name }}</td>
+          <td>{{ log.checkout_time }}</td>
+          <td>{{ log.checkin_time }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

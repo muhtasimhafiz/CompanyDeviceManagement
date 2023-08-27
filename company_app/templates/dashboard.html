@@ -23,14 +23,17 @@
   <h3>Employees</h3>
   <ul>
     {% for employee in employees %}
-      <li>{{ employee }}</li>
+      <li>{{ employee.name }}</li>
     {% endfor %}
   </ul>
   
   <h3>Devices</h3>
   <ul>
     {% for device in devices %}
-      <li>{{ device }}</li>
+      <li>{{ device.name }} - {{ device.current_condition }} - {{ device.reference_id }}</li>
     {% endfor %}
   </ul>
+  
+  <!-- Link to Manage Devices -->
+  <h3><a href="{% url 'company_app:manage_device' %}">Manage Devices</a></h3>
 {% endblock %}

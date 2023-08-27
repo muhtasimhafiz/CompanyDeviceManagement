@@ -13,9 +13,13 @@
 
     <nav>
         <ul>
-            <li><a href="{% url 'company_app:register_company' %}">Register</a></li>
-            <li><a href="{% url 'company_app:company_login' %}">Login</a></li>
-            <!-- Add more navigation links as needed -->
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'company_app:dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'company_app:logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'company_app:register_company' %}">Register</a></li>
+                <li><a href="{% url 'company_app:company_login' %}">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -25,9 +29,7 @@
     </main>
 
     <footer>
-        <!-- Footer content here -->
     </footer>
     
-    <!-- Add your JavaScript links here -->
 </body>
 </html>
