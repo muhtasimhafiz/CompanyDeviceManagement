@@ -68,11 +68,6 @@ def company_dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
-def checkout_device(request):
-    pass
-def checkin_device(request):
-    pass
-
 def manage_device(request):
     devices = Device.objects.filter(company=request.user)
     for device in devices:
@@ -155,7 +150,7 @@ def manage_device(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('company_app:login')  
+    return redirect('company_app:company_login')  
 
 def device_log_list(request):
     logs = DeviceLog.objects.all().order_by('-checkout_time')  # Sort by checkout time in descending order
