@@ -17,7 +17,7 @@ class CompanyRegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Login Name'
+        self.fields['username'].label = 'Username'
 
 class CompanyLoginForm(AuthenticationForm):
     username = forms.CharField(label='Company Name')
